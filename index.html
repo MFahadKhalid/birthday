@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <div class="music-controls">
+        <button class="music-btn" onclick="toggleMusic()">🎵 Music ON</button>
+        <input type="file" id="musicFile" accept="audio/*" style="display: none;" onchange="changeSong()">
+        <button class="music-btn" onclick="document.getElementById('musicFile').click()">🎶 Change Song</button>
+        <div style="color: white; font-size: 0.8rem; margin-top: 5px; text-align: center;">
+            Volume: <input type="range" id="volumeSlider" min="0" max="100" value="30" onchange="changeVolume()">
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <button class="nav-btn active" onclick="showPage('welcome')">🏠 Home</button>
+        <button class="nav-btn" onclick="showPage('messages')">💌 Messages</button>
+        <button class="nav-btn" onclick="showPage('videos')">🎥 Videos</button>
+        <button class="nav-btn" onclick="showPage('photos')">📸 Photos</button>
+        <button class="nav-btn" onclick="showPage('gifts')">🎁 Gifts</button>
+        <button class="nav-btn" onclick="showPage('reasons')">🌟 Amazing You</button>
+        <button class="nav-btn" onclick="showPage('cake')">🎂 Cake</button>
+        <button class="nav-btn" onclick="showPage('constellation')">⭐ Stars</button>
+        <button class="nav-btn" onclick="showPage('wishes')">💫 Wishes</button>
+        <button class="nav-btn" onclick="showPage('celebration')">🎉 Celebrate</button>
+    </div>
+
+    <div class="balloons-container">
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+        <div class="balloon" onclick="popBalloon(this)"></div>
+    </div>
+
+    <div class="fireworks-container" id="fireworksContainer"></div>
+
+    <div class="page welcome-page active" id="welcome">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1 class="welcome-title">🎉 HAPPY BIRTHDAY! 🎉</h1>
+            <p class="welcome-subtitle"><span class="jaan-e-jahan">Jaan-e-Jahan</span></p>
+            <p style="color: #fff; font-size: 1.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin: 0 0 40px 0; text-align: center;">August 21st - Your Special Day ✨</p>
+            <button class="enter-btn" onclick="showPage('messages')">💝 Enter the Celebration</button>
+        </div>
+    </div>
+
+    <div class="page messages-page" id="messages">
+        <div class="messages-container">
+            <h2 class="page-title">💌 Special Messages for You</h2>
+            
+            <div class="message-card">
+                <div class="message-text">
+                    🌟 "On your special day, I want you to know how much joy and happiness you bring into the world. Your smile lights up every room you enter!" 🌟
+                </div>
+            </div>
+
+            <div class="message-card">
+                <div class="message-text">
+                    🎂 "Another year of amazing memories, beautiful moments, and incredible adventures awaits you. You deserve all the love and happiness!" 🎂
+                </div>
+            </div>
+
+            <div class="message-card">
+                <div class="message-text">
+                    🌸 "You are such a wonderful person with a heart of gold. May this birthday be the beginning of your best year yet!" 🌸
+                </div>
+            </div>
+
+            <div class="message-card">
+                <div class="message-text">
+                    ✨ "Your friendship means the world to me. Thank you for being such an amazing person. Wishing you endless joy on your birthday!" ✨
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page videos-page" id="videos">
+        <div class="videos-container">
+            <h2 class="page-title">🎥 Special Video Messages</h2>
+            
+            <div class="video-section">
+                <h3 style="color: #333; font-size: 1.8rem; margin-bottom: 20px;">📹 Video Messages for You</h3>
+                
+                <video class="video-player" loop autoplay muted>
+                    <source src="assets/video/1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-message">
+                    <strong>💝 Message 1:</strong><br>
+                    "Happy Birthday! This video is filled with all the love and warm wishes for your special day. May this year bring you endless happiness and beautiful moments!"
+                </div>
+            </div>
+
+            <div class="video-section">
+                <video class="video-player" loop autoplay muted>
+                    <source src="assets/video/2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-message">
+                    <strong>🌟 Message 2:</strong><br>
+                    "You light up every room with your amazing smile! Here's to celebrating all the wonderful things about you. You deserve the world and more!"
+                </div>
+            </div>
+
+            <div class="video-section">
+                <video class="video-player" loop autoplay muted>
+                    <source src="assets/video/3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-message">
+                    <strong>🎈 Message 3:</strong><br>
+                    "Your kindness touches everyone around you, and your friendship is a precious gift. Wishing you a birthday as beautiful and special as you are!"
+                </div>
+            </div>
+
+            <div class="video-section">
+                <video class="video-player" loop autoplay muted>
+                    <source src="assets/video/4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-message">
+                    <strong>🌺 Message 4:</strong><br>
+                    "Every moment with you is a treasure! May this birthday bring you all the joy and love you bring to others every single day!"
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page photos-page" id="photos">
+        <div class="messages-container">
+            <h2 class="page-title">📸 Beautiful Memories</h2>
+            
+            <div class="photo-gallery">
+                <div class="photo-frame" onclick="openLightbox(0)">
+                    <div class="photo-placeholder">
+                        <img src="assets/img/1.jpg" alt="Beautiful Smile" class="uploaded-photo" style="display: block;">
+                    </div>
+                    <div class="photo-caption">Precious Moments</div>
+                </div>
+
+                <div class="photo-frame" onclick="openLightbox(1)">
+                    <div class="photo-placeholder">
+                        <img src="assets/img/2.jpg" alt="Happy Times" class="uploaded-photo" style="display: block;">
+                    </div>
+                    <div class="photo-caption">Joyful Memories</div>
+                </div>
+
+                <div class="photo-frame" onclick="openLightbox(2)">
+                    <div class="photo-placeholder">
+                        <img src="assets/img/3.jpg" alt="Special Day" class="uploaded-photo" style="display: block;">
+                    </div>
+                    <div class="photo-caption">Unforgettable</div>
+                </div>
+
+                <div class="photo-frame" onclick="openLightbox(3)">
+                    <div class="photo-placeholder">
+                        <img src="assets/img/4.jpg" alt="Sweet Moment" class="uploaded-photo" style="display: block;">
+                    </div>
+                    <div class="photo-caption">Cherished Times</div>
+                </div>
+
+                <div class="photo-frame" onclick="openLightbox(4)">
+                    <div class="photo-placeholder">
+                        <img src="assets/img/5.jpg" alt="Favorite Memory" class="uploaded-photo" style="display: block;">
+                    </div>
+                    <div class="photo-caption">Heart Warming</div>
+                </div>
+
+                <div class="photo-frame" onclick="openLightbox(5)">
+                    <div class="photo-placeholder">
+                        <img src="assets/img/6.jpg" alt="Wonderful You" class="uploaded-photo" style="display: block;">
+                    </div>
+                    <div class="photo-caption">Simply Amazing</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page gifts-page" id="gifts">
+        <div class="messages-container">
+            <h2 class="page-title">🎁 Virtual Gift Boxes</h2>
+            <p style="text-align: center; color: #333; font-size: 1.3rem; margin-bottom: 30px;">Click on each gift to unwrap a special surprise! 🎉</p>
+            
+            <div class="gifts-container">
+                <div class="gift-box" onclick="openGift(this, 1)">
+                    <span class="gift-icon">🎁</span>
+                    <div class="gift-title">Gift of Joy</div>
+                    <div class="gift-message">
+                        Your laughter is the most beautiful sound in the world! 🌟 May your days be filled with endless reasons to smile and giggle like there's no tomorrow!
+                    </div>
+                </div>
+
+                <div class="gift-box" onclick="openGift(this, 2)">
+                    <span class="gift-icon">💝</span>
+                    <div class="gift-title">Gift of Love</div>
+                    <div class="gift-message">
+                        You are surrounded by so much love! 💕 Every person whose life you've touched is better because of your kindness and beautiful heart!
+                    </div>
+                </div>
+
+                <div class="gift-box" onclick="openGift(this, 3)">
+                    <span class="gift-icon">🌟</span>
+                    <div class="gift-title">Gift of Dreams</div>
+                    <div class="gift-message">
+                        All your dreams are valid and achievable! ✨ This year, may the universe conspire to make every single one of your wishes come true!
+                    </div>
+                </div>
+
+                <div class="gift-box" onclick="openGift(this, 4)">
+                    <span class="gift-icon">🎈</span>
+                    <div class="gift-title">Gift of Adventure</div>
+                    <div class="gift-message">
+                        Life is an amazing adventure waiting for you! 🗺️ May this new year bring exciting journeys, new discoveries, and unforgettable experiences!
+                    </div>
+                </div>
+
+                <div class="gift-box" onclick="openGift(this, 5)">
+                    <span class="gift-icon">🌸</span>
+                    <div class="gift-title">Gift of Beauty</div>
+                    <div class="gift-message">
+                        You see beauty everywhere because you ARE beautiful! 🌺 Your inner light makes the world a more gorgeous place just by existing!
+                    </div>
+                </div>
+
+                <div class="gift-box" onclick="openGift(this, 6)">
+                    <span class="gift-icon">💫</span>
+                    <div class="gift-title">Gift of Magic</div>
+                    <div class="gift-message">
+                        You create magic wherever you go! ✨ Your presence turns ordinary moments into extraordinary memories that people treasure forever!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page reasons-page" id="reasons">
+        <div class="reasons-container">
+            <h2 class="page-title">🌟 Reasons Why You're Amazing</h2>
+            
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">1</div>
+                <div class="reason-text">
+                    Your smile has the power to light up the darkest room and brighten anyone's day! 😊
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">2</div>
+                <div class="reason-text">
+                    You have a heart so pure and kind that makes everyone around you feel loved and valued! 💕
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">3</div>
+                <div class="reason-text">
+                    Your laughter is contagious and fills every space with joy and positive energy! 🎵
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">4</div>
+                <div class="reason-text">
+                    You see the beauty in everything and inspire others to appreciate life's wonderful moments! 🌈
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">5</div>
+                <div class="reason-text">
+                    Your friendship is a precious gift that makes life infinitely more beautiful and meaningful! 🎁
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">6</div>
+                <div class="reason-text">
+                    You have an incredible strength that inspires everyone who knows your story! 💪
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">7</div>
+                <div class="reason-text">
+                    Your uniqueness makes the world a more colorful and interesting place to live in! 🦄
+                </div>
+            </div>
+
+            <div class="reason-card" onclick="animateReason(this)">
+                <div class="reason-number">8</div>
+                <div class="reason-text">
+                    You deserve all the happiness, love, and beautiful things life has to offer! 🌟
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page cake-page" id="cake">
+        <div class="cake-container">
+            <h2 class="page-title">🎂 Make a Wish!</h2>
+            
+            <div class="virtual-cake" onclick="blowCandles()">
+                <div class="cake-layers">🎂</div>
+                <div class="candles" id="candles">🕯️🕯️🕯️🕯️🕯️</div>
+                <div class="cake-message" id="cakeMessage">
+                    Click the cake to blow out the candles and make a wish! ✨
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.2); border-radius: 20px; padding: 30px; margin-top: 30px; backdrop-filter: blur(10px);">
+                <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">🌟 Birthday Cake Messages</h3>
+                <p style="color: #333; font-size: 1.2rem; line-height: 1.6;">
+                    "May this virtual cake be as sweet as you are! Every layer represents a wonderful year of your life, 
+                    and every candle represents a wish that's about to come true. You deserve the most delicious 
+                    moments life has to offer! Happy Birthday, sweet soul! 🍰💕"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page constellation-page" id="constellation">
+        <div class="stars-container" id="starsContainer"></div>
+        <div class="constellation-container">
+            <h2 class="page-title">⭐ Constellation of Wishes</h2>
+            <p style="color: #fff; font-size: 1.3rem; text-align: center; margin-bottom: 30px;">
+                Click on the stars to reveal special birthday wishes written in the cosmos! ✨
+            </p>
+            
+            <div class="constellation-wish" id="wish1">
+                🌟 "May the stars align to bring you everything your heart desires this year!" 🌟
+            </div>
+            <div class="constellation-wish" id="wish2">
+                ⭐ "Like the brightest star in the sky, you illuminate everyone's life with your presence!" ⭐
+            </div>
+            <div class="constellation-wish" id="wish3">
+                🌟 "Your dreams are written in the stars, and this year they're all coming true!" 🌟
+            </div>
+            <div class="constellation-wish" id="wish4">
+                ⭐ "You shine brighter than any constellation in the universe!" ⭐
+            </div>
+            <div class="constellation-wish" id="wish5">
+                🌟 "May your birthday be as magical as a shooting star crossing the night sky!" 🌟
+            </div>
+        </div>
+    </div>
+
+    <div class="page wishes-page" id="wishes">
+        <div class="wishes-container">
+            <h2 class="page-title">💫 Birthday Wishes</h2>
+            
+            <div class="wish-item">
+                <div class="wish-text">
+                    🎈 May your birthday be filled with sunshine, laughter, and all the things that make you happiest! 🎈
+                </div>
+            </div>
+
+            <div class="wish-item">
+                <div class="wish-text">
+                    🌺 Wishing you a year ahead filled with love, adventure, and beautiful surprises around every corner! 🌺
+                </div>
+            </div>
+
+            <div class="wish-item">
+                <div class="wish-text">
+                    🎯 May all your dreams come true and may this new year bring you everything your heart desires! 🎯
+                </div>
+            </div>
+
+            <div class="wish-item">
+                <div class="wish-text">
+                    🌈 Here's to celebrating you today and always - you make the world a brighter, more beautiful place! 🌈
+                </div>
+            </div>
+
+            <div class="wish-item">
+                <div class="wish-text">
+                    🦋 May this birthday mark the beginning of the most amazing chapter of your life story! 🦋
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page celebration-page" id="celebration">
+        <div class="celebration-content">
+            <h2 class="page-title">🎉 Let's Celebrate!</h2>
+            
+            <div class="final-message">
+                <div class="final-text">
+                    🎂 Today is all about YOU! 🎂<br><br>
+                    You bring so much joy, laughter, and love into this world.<br>
+                    Your kindness touches everyone around you, <br>
+                    and your smile can brighten even the cloudiest day.<br><br>
+                    🌟 Here's to another amazing year of adventures, dreams coming true, and wonderful memories! 🌟<br><br>
+                    <strong>With all my love and best wishes on your special day! 💕</strong>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button class="celebration-btn" onclick="launchFireworks()">🎆 Launch Fireworks</button>
+                <button class="celebration-btn" onclick="addSparkles()">✨ Add Magic</button>
+                <button class="celebration-btn" onclick="celebrateAll()">🎉 Full Celebration</button>
+                <button class="celebration-btn" onclick="showHearts()">💕 Show Love</button>
+                <button class="celebration-btn" onclick="showPetals()">🌸 Cherry Blossoms</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">×</button>
+            <button class="lightbox-nav lightbox-prev" onclick="previousImage()">‹</button>
+            <button class="lightbox-nav lightbox-next" onclick="nextImage()">›</button>
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
+    </div>
+
+    <div class="balloon-message-modal" id="balloonMessageModal">
+        <div class="balloon-message-text" id="balloonMessageText"></div>
+        <button class="balloon-message-close" onclick="closeBalloonMessage()">✨ Close ✨</button>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assets/audio/Yiruma_ _____ _ River Flows in You.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
