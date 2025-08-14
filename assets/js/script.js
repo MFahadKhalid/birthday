@@ -37,15 +37,15 @@ const constellationWishes = [
 
 const photos = [
   {
-    src: "aassets/img/1.jpg",
+    src: "assets/img/1.jpg",
     alt: "Beautiful Smile",
     caption: "Precious Moments",
   },
-  { src: "aassets/img/2.jpg", alt: "Happy Times", caption: "Joyful Memories" },
-  { src: "aassets/img/3.jpg", alt: "Special Day", caption: "Unforgettable" },
-  { src: "aassets/img/4.jpg", alt: "Sweet Moment", caption: "Cherished Times" },
-  { src: "aassets/img/5.jpg", alt: "Favorite Memory", caption: "Heart Warming" },
-  { src: "aassets/img/6.jpg", alt: "Wonderful You", caption: "Simply Amazing" },
+  { src: "assets/img/2.jpg", alt: "Happy Times", caption: "Joyful Memories" },
+  { src: "assets/img/3.jpg", alt: "Special Day", caption: "Unforgettable" },
+  { src: "assets/img/4.jpg", alt: "Sweet Moment", caption: "Cherished Times" },
+  { src: "assets/img/5.jpg", alt: "Favorite Memory", caption: "Heart Warming" },
+  { src: "assets/img/6.jpg", alt: "Wonderful You", caption: "Simply Amazing" },
 ];
 
 let currentImageIndex = 0;
