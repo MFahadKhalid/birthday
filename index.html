@@ -12,26 +12,33 @@
 
     <div class="petals-container" id="petalsContainer"></div>
 
-    <div class="music-controls">
-        <button class="music-btn" onclick="toggleMusic()">🎵 Music ON</button>
-        <input type="file" id="musicFile" accept="audio/*" style="display: none;" onchange="changeSong()">
-        <button class="music-btn" onclick="document.getElementById('musicFile').click()">🎶 Change Song</button>
-        <div style="color: white; font-size: 0.8rem; margin-top: 5px; text-align: center;">
-            Volume: <input type="range" id="volumeSlider" min="0" max="100" value="30" onchange="changeVolume()">
+    <div class="controls-panel">
+        <div class="music-controls">
+            <button class="music-btn" onclick="toggleMusic()">🎵 Music ON</button>
+            <input type="file" id="musicFile" accept="audio/*" style="display: none;" onchange="changeSong()">
+            <button class="music-btn" onclick="document.getElementById('musicFile').click()">🎶 Change Song</button>
+            <div style="color: white; font-size: 0.8rem; margin-top: 5px; text-align: center;">
+                Volume: <input type="range" id="volumeSlider" min="0" max="100" value="30" onchange="changeVolume()">
+            </div>
         </div>
+        <div id="themeToggleContainer" class="theme-controls"></div>
     </div>
 
     <div class="nav-container">
-        <button class="nav-btn active" onclick="showPage('welcome')">🏠 Home</button>
-        <button class="nav-btn" onclick="showPage('messages')">💌 Messages</button>
-        <button class="nav-btn" onclick="showPage('videos')">🎥 Videos</button>
-        <button class="nav-btn" onclick="showPage('photos')">📸 Photos</button>
-        <button class="nav-btn" onclick="showPage('gifts')">🎁 Gifts</button>
-        <button class="nav-btn" onclick="showPage('reasons')">🌟 Amazing You</button>
-        <button class="nav-btn" onclick="showPage('cake')">🎂 Cake</button>
-        <button class="nav-btn" onclick="showPage('constellation')">⭐ Stars</button>
-        <button class="nav-btn" onclick="showPage('wishes')">💫 Wishes</button>
-        <button class="nav-btn" onclick="showPage('celebration')">🎉 Celebrate</button>
+        <div class="nav-progress" id="navProgress"></div>
+        <button class="nav-btn active" onclick="showPage('welcome')" aria-label="Home page">🏠 Home</button>
+        <button class="nav-btn" onclick="showPage('countdown')" aria-label="Countdown timer">⏰ Countdown</button>
+        <button class="nav-btn" onclick="showPage('messages')" aria-label="Birthday messages">💌 Messages</button>
+        <button class="nav-btn" onclick="showPage('guestbook')" aria-label="Guest book">📖 Guest Book</button>
+        <button class="nav-btn" onclick="showPage('videos')" aria-label="Video messages">🎥 Videos</button>
+        <button class="nav-btn" onclick="showPage('photos')" aria-label="Photo gallery">📸 Photos</button>
+        <button class="nav-btn" onclick="showPage('gifts')" aria-label="Virtual gifts">🎁 Gifts</button>
+        <button class="nav-btn" onclick="showPage('reasons')" aria-label="Reasons why you're amazing">🌟 Amazing You</button>
+        <button class="nav-btn" onclick="showPage('cake')" aria-label="Virtual birthday cake">🎂 Cake</button>
+        <button class="nav-btn" onclick="showPage('constellation')" aria-label="Star wishes">⭐ Stars</button>
+        <button class="nav-btn" onclick="showPage('wishes')" aria-label="Birthday wishes">💫 Wishes</button>
+        <button class="nav-btn" onclick="showPage('share')" aria-label="Share celebration">📤 Share</button>
+        <button class="nav-btn" onclick="showPage('celebration')" aria-label="Grand celebration">🎉 Celebrate</button>
     </div>
 
     <div class="balloons-container">
@@ -54,7 +61,38 @@
             <h1 class="welcome-title">🎉 HAPPY BIRTHDAY! 🎉</h1>
             <p class="welcome-subtitle"><span class="jaan-e-jahan">Jaan-e-Jahan</span></p>
             <p style="color: #fff; font-size: 1.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); margin: 0 0 40px 0; text-align: center;">August 21st - Your Special Day ✨</p>
-            <button class="enter-btn" onclick="showPage('messages')">💝 Enter the Celebration</button>
+            <button class="enter-btn" onclick="showPage('countdown')">💝 Enter the Celebration</button>
+        </div>
+    </div>
+
+    <div class="page countdown-page" id="countdown">
+        <div class="messages-container">
+            <h2 class="page-title">⏰ Countdown to Your Special Day</h2>
+            <div id="countdownContainer" class="countdown-display"></div>
+            <div style="background: rgba(255, 255, 255, 0.2); border-radius: 20px; padding: 30px; margin-top: 30px; backdrop-filter: blur(10px); text-align: center;">
+                <p style="color: #fff; font-size: 1.3rem; line-height: 1.8;">
+                    🎂 Every second brings us closer to celebrating YOU! 🎂<br><br>
+                    Get ready for an amazing day filled with love, laughter, and unforgettable moments! 🌟
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page guestbook-page" id="guestbook">
+        <div class="messages-container">
+            <div id="guestBookContainer"></div>
+        </div>
+    </div>
+
+    <div class="page share-page" id="share">
+        <div class="messages-container">
+            <div id="shareContainer"></div>
+            <div style="background: rgba(255, 255, 255, 0.2); border-radius: 20px; padding: 30px; margin-top: 30px; backdrop-filter: blur(10px); text-align: center;">
+                <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 15px;">✨ Spread the Joy! ✨</h3>
+                <p style="color: #fff; font-size: 1.2rem; line-height: 1.6;">
+                    Share this celebration with friends and family! Let everyone join in making this birthday extra special! 🎉💕
+                </p>
+            </div>
         </div>
     </div>
 
@@ -440,6 +478,43 @@
         Your browser does not support the audio element.
     </audio>
 
+    <!-- Load all JavaScript modules -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/countdown.js"></script>
+    <script src="assets/js/guestbook.js"></script>
+    <script src="assets/js/share.js"></script>
+    <script src="assets/js/touch.js"></script>
     <script src="assets/js/script.js"></script>
+
+    <script>
+        // Initialize all modules when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme manager
+            if (typeof initThemeManager === 'function') {
+                initThemeManager();
+            }
+
+            // Initialize countdown
+            if (typeof initCountdown === 'function') {
+                initCountdown();
+            }
+
+            // Initialize guest book
+            if (typeof initGuestBook === 'function') {
+                initGuestBook();
+            }
+
+            // Initialize share manager
+            if (typeof initShareManager === 'function') {
+                initShareManager();
+            }
+
+            // Initialize touch gestures
+            if (typeof initTouchGestures === 'function') {
+                initTouchGestures();
+            }
+        });
+    </script>
 </body>
 </html>

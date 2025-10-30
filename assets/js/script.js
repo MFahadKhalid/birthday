@@ -1,72 +1,133 @@
+// ===== STATE MANAGEMENT =====
 let currentPage = "welcome";
 let musicPlaying = false;
-let bgMusicElement = document.getElementById("bgMusic");
+let bgMusicElement = null;
 let heartsInterval;
 let petalsInterval;
-
-const cuteMessages = [
-  "🌟 You light up every room with your amazing smile! 🌟",
-  "💖 Your kindness makes the world a better place! 💖",
-  "🦋 You're as beautiful inside as you are outside! 🦋",
-  "🌸 Your laughter is the most beautiful sound in the world! 🌸",
-  "✨ You have a heart of pure gold! ✨",
-  "🌺 Every day is brighter because you exist! 🌺",
-  "💫 You're absolutely wonderful in every way! 💫",
-  "🌈 Your friendship is a precious gift! 🌈",
-  "🎀 You make ordinary moments feel magical! 🎀",
-  "🌻 Your positive energy is contagious! 🌻",
-  "💕 You deserve all the happiness in the world! 💕",
-  "🌙 You're a shining star in everyone's life! 🌙",
-  "🎈 Your spirit is absolutely beautiful! 🎈",
-  "🌷 You bring joy wherever you go! 🌷",
-  "💝 You're truly one of a kind and amazing! 💝",
-  "🦄 You make dreams come true just by being you! 🦄",
-  "🌟 You're perfectly imperfect and that's what makes you special! 🌟",
-  "💐 Your soul is as beautiful as a blooming garden! 💐",
-  "🎭 You have the most wonderful personality! 🎭",
-  "🌊 Your calm presence brings peace to everyone! 🌊",
-];
-
-const constellationWishes = [
-  "May the stars align to bring you everything your heart desires this year!",
-  "Like the brightest star in the sky, you illuminate everyone's life with your presence!",
-  "Your dreams are written in the stars, and this year they're all coming true!",
-  "You shine brighter than any constellation in the universe!",
-  "May your birthday be as magical as a shooting star crossing the night sky!",
-];
-
-const photos = [
-  {
-    src: "assets/img/1.jpg",
-    alt: "Beautiful Smile",
-    caption: "Precious Moments",
-  },
-  { src: "assets/img/2.jpg", alt: "Happy Times", caption: "Joyful Memories" },
-  { src: "assets/img/3.jpg", alt: "Special Day", caption: "Unforgettable" },
-  { src: "assets/img/4.jpg", alt: "Sweet Moment", caption: "Cherished Times" },
-  { src: "assets/img/5.jpg", alt: "Favorite Memory", caption: "Heart Warming" },
-  { src: "assets/img/6.jpg", alt: "Wonderful You", caption: "Simply Amazing" },
-];
-
 let currentImageIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+let eventListeners = [];
 
+// Use config from config.js (fallback if not loaded)
+const cuteMessages = typeof CONFIG !== 'undefined' ? CONFIG.cuteMessages : [];
+const constellationWishes = typeof CONFIG !== 'undefined' ? CONFIG.constellationWishes : [];
+const photos = typeof CONFIG !== 'undefined' ? CONFIG.photos : [];
+
+// ===== UTILITY FUNCTIONS =====
+
+// Error Handler
+function handleError(error, context = 'Unknown') {
+  console.error(`Error in ${context}:`, error);
+  // Could add user notification here if needed
+}
+
+// Safe Element Query
+function safeQuery(selector) {
+  try {
+    return document.querySelector(selector) || document.getElementById(selector);
+  } catch (error) {
+    handleError(error, `safeQuery(${selector})`);
+    return null;
+  }
+}
+
+// Add Event Listener with Tracking (for cleanup)
+function addTrackedListener(element, event, handler, options) {
+  if (!element) return;
+  element.addEventListener(event, handler, options);
+  eventListeners.push({ element, event, handler, options });
+}
+
+// Cleanup All Event Listeners
+function cleanupEventListeners() {
+  eventListeners.forEach(({ element, event, handler, options }) => {
+    if (element) {
+      element.removeEventListener(event, handler, options);
+    }
+  });
+  eventListeners = [];
+}
+
+// Debounce Function
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Check for Reduced Motion Preference
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Lazy Load Images
+function lazyLoadImage(img) {
+  if (!img.dataset.src) return;
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const image = entry.target;
+        image.src = image.dataset.src;
+        image.classList.add('loaded');
+        observer.unobserve(image);
+      }
+    });
+  });
+
+  observer.observe(img);
+}
+
+// ===== LIGHTBOX FUNCTIONS =====
 function openLightbox(index) {
-  currentImageIndex = index;
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImage = document.getElementById("lightbox-image");
-  const lightboxCaption = document.getElementById("lightbox-caption");
-  const lightboxCounter = document.getElementById("lightbox-counter");
+  try {
+    currentImageIndex = index;
+    const lightbox = safeQuery("lightbox");
+    const lightboxImage = safeQuery("lightbox-image");
+    const lightboxCaption = safeQuery("lightbox-caption");
+    const lightboxCounter = safeQuery("lightbox-counter");
 
-  lightboxImage.src = photos[index].src;
-  lightboxImage.alt = photos[index].alt;
-  lightboxCaption.textContent = photos[index].caption;
-  lightboxCounter.textContent = `${index + 1} / ${photos.length}`;
+    if (!lightbox || !lightboxImage || !photos[index]) return;
 
-  lightbox.classList.add("show");
+    // Add loading state
+    lightboxImage.classList.add('loading');
 
-  addSparkles();
+    const img = new Image();
+    img.onload = () => {
+      lightboxImage.src = photos[index].src;
+      lightboxImage.alt = photos[index].alt;
+      lightboxImage.classList.remove('loading');
 
-  document.body.style.overflow = "hidden";
+      if (lightboxCaption) {
+        lightboxCaption.textContent = photos[index].caption;
+      }
+      if (lightboxCounter) {
+        lightboxCounter.textContent = `${index + 1} / ${photos.length}`;
+      }
+
+      lightbox.classList.add("show");
+      addSparkles();
+      document.body.style.overflow = "hidden";
+    };
+
+    img.onerror = () => {
+      handleError(new Error('Failed to load image'), 'openLightbox');
+      lightboxImage.classList.remove('loading');
+      // Show placeholder or error message
+      lightboxImage.alt = "Image failed to load";
+    };
+
+    img.src = photos[index].src;
+  } catch (error) {
+    handleError(error, 'openLightbox');
+  }
 }
 
 function closeLightbox() {
